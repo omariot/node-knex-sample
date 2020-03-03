@@ -2,7 +2,7 @@
   "name": "knex-node",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,8 +10,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "hapi": "^13.2.1",
-    "knex": "^0.10.0",
-    "sqlite3": "^3.1.1"
+    "@hapi/hapi": "^19.1.1",
+    "bluebird": "^3.7.2",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "knex": "^0.20.10",
+    "mssql": "^6.1.0",
+    "mssql2": "^3.3.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.1.0",
+    "node-gyp": "^6.1.0",
+    "oracledb": "github:oracle/node-oracledb#v4.2.0",
+    "pg": "^7.18.2",
+    "sqlite3": "^4.1.1",
+    "underscore": "^1.9.2"
   }
 }

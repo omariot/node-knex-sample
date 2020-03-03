@@ -1,54 +1,19 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var knex = require('./config');
+var knex = require('./configknex');
+var router = require('./routes/users');
 //var _ = require('lodash');
-var Promise = require('bluebird');
+//var Promise = require('bluebird');
 var _ = require('underscore');
 
-var router = express.Router();
+//var router = express.Router();
 
-
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 
-router.route('/users')
-  .get(function(req,res){
-    knex.select().table('users')
-  .then(function(collection){
-    res.json({
-      error:false,
-      data: collection
-    })
-  })
-  .catch(function(err){
-    res.status(500).json({
-      error:true,
-      data:{
-        message:err.message
-      }
-    })
-  })
-})
-.post(function(req,res){
-  knex('users').insert({name:req.body.name})
-    .then(function(id){
-      res.json({
-        error:false,
-        data: id
-      })
-    })
-    .catch(function(err){
-      res.status(500).json({
-      error:true,
-      data:{
-        message:err.message
-      }
-      })
-    })
-})
-
+/*
 
 router.route('/categories')
   .get(function(req,res){
@@ -57,7 +22,7 @@ router.route('/categories')
         res.json({
           error:false,
           data: collection
-        })
+        });
       })
       .catch(function(err){
         res.status(500).json({
@@ -151,7 +116,7 @@ router.route('/projects')
           data: collection
         })
       })
-    })
+    })up
     .catch(function(err){
       res.json({
         error:true,
@@ -161,7 +126,7 @@ router.route('/projects')
       })
     })
   })
-  */
+  *//*
     knex('projects')
     .innerJoin('categories','projects.category_id','categories.id')
     .innerJoin('skills_projects','projects.id','skills_projects.project_id')
@@ -175,13 +140,13 @@ router.route('/projects')
     .groupBy('projects.id')
     .then(function(coll){
       _.forEach(coll,function(obj){
-        obj.skills = obj.skills.split(',')
-      })
+        obj.skills = obj.skills.split(',');
+      });
       res.json({
         error:false,
         data:coll
-      })
-    })
+      });
+    });
 })
 
 
@@ -199,13 +164,13 @@ router.route('/projects')
                 return trx.insert({project_id:id[0],skill_id:knex('skills').where({name:skill}).select('id')})
                 .into('skills_projects')
                 .then(function(id){
-                  console.log('id  : ',id)
+                  console.log('id  : ',id);
                 })
                 .catch(function(err){
-                  console.log('error!!!!',err)
-                })
-              })
-            })
+                  console.log('error!!!!',err);
+                });
+              });
+            });
       })
       .then(function(inserts){
         console.log(inserts.length + ' rows saved ')
@@ -214,7 +179,7 @@ router.route('/projects')
           data:{
             inserts
           }
-        })
+        });
       })
       .catch(function(err){
         return res.status(500).json({
@@ -233,7 +198,7 @@ router.route('/categories/:id')
         res.json({
           error:false,
           data: coll
-        })
+        });
       })
       .catch(function(err){
         res.status(500).json({
@@ -241,12 +206,12 @@ router.route('/categories/:id')
           data:{
             message: err.message
           }
-        })
-      })
-  })
-
-app.use('/api',router);
+        });
+      });
+  });
+*/
+app.use('/api', router );
 
 app.listen(3000,function(){
-  console.log('Express listening on Port 3000...')
-})
+  console.log('Express listening on Port 3000...');
+});
